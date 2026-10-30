@@ -5,7 +5,9 @@ use \OPNsense\Base\ApiMutableServiceControllerBase;
 use \OPNsense\Core\Backend;
 class ServiceController extends ApiMutableServiceControllerBase
 {
-    protected static $internalServiceClass = 'OPNsense\HelloWorld\HelloWorld';
+    protected static $internalServiceClass = '\OPNsense\HelloWorld\HelloWorld';
+    protected static $internalServiceTemplate = 'OPNsense/HelloWorld';
+    protected static $internalServiceEnabled = 'general.Enabled';
     protected static $internalServiceName = 'helloworld';
     public function reloadAction()
     {
@@ -26,6 +28,10 @@ class ServiceController extends ApiMutableServiceControllerBase
             }
         }
         return ["message" => "unable to run config action"];
+    }
+    protected function reconfigureForceRestart()
+    {
+        return 0;
     }
 }
 
